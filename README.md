@@ -8,10 +8,12 @@ The app make use of the Aviation Edge's api service for airport locations and fl
 
 ## Dependencies 
   Retrofit - 
+  
   Mockito - 
+  
   Daggar - 
   
-# Design Pattern Architecture
+## Design Pattern Architecture
 
   MVVM
   
