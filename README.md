@@ -6,7 +6,7 @@ Flightmode ia an app that displays the  airports based on a user's current locat
 
 The app make use of the Aviation Edge's api service for airport locations and flight details https://aviation-edge.com/premium-api/
 
-# Dependencies 
+## Dependencies 
   Retrofit - 
   Mockito - 
   Daggar - 
