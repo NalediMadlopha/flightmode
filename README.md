@@ -16,5 +16,3 @@ The app make use of the Aviation Edge's api service for airport locations and fl
   
 ## Design Pattern Architecture
   MVVM
-  
-  
