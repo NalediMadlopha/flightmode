@@ -39,5 +39,11 @@ before_install:
 - chmod +x gradlew
 - yes | sdkmanager "platforms;android-$ANDROID_API"
 
+addons:
+  sonarcloud:
+    organization: "naledimadlopha-github" # the key of the org you chose at step #3
+    token:
+      secure: SONAR_TOKEN # encrypted value of your token
+
 script:
 - ./gradlew build check
