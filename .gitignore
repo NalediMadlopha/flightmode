@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /local.properties
+/sonar-project.properties
 /.idea/*
 /.idea/caches
 /.idea/libraries
