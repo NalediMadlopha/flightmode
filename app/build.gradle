@@ -4,9 +4,15 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 apply plugin: "org.sonarqube"
 
 apply plugin: 'jacoco'
+
+androidExtensions {
+    experimental = true
+}
 
 android {
     compileSdkVersion 28
@@ -57,11 +63,26 @@ task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'crea
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
-    implementation 'androidx.core:core-ktx:1.1.0-alpha04'
-    implementation 'com.google.android.gms:play-services-maps:16.1.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
+
+    implementation              androidDependencies.appcompat
+    implementation              androidDependencies.constraintlayout
+    implementation              androidDependencies.coreKtx
+    implementation              androidDependencies.legacySupport
+    implementation              androidDependencies.lifecycleExtensions
+    kapt                        androidDependencies.lifecycleCompiler
+    implementation              androidDependencies.roomRuntime
+    kapt                        androidDependencies.roomCompiler
+
+    implementation              thirdPartyDependencies.playServicesMaps
+    implementation              thirdPartyDependencies.material
+    implementation              thirdPartyDependencies.retrofit
+    implementation              thirdPartyDependencies.retrofitConverterGson
+
+    testImplementation          testDependencies.junit
+    androidTestImplementation   testDependencies.testRunner
+    androidTestImplementation   testDependencies.espressoCore
+    androidTestImplementation   testDependencies.robolectric
+    androidTestImplementation   testDependencies.mockito
 }
