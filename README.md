@@ -8,7 +8,7 @@
 [![Bugs](https://sonarcloud.io/api/badges/measure?key=NalediMadlopha_flightmode&metric=bugs)](https://sonarcloud.io/component_measures?id=NalediMadlopha_flightmode&metric=bugs)
 [![Coverage](https://sonarcloud.io/api/badges/measure?key=NalediMadlopha_flightmode&metric=coverage)](https://sonarcloud.io/component_measures?id=NalediMadlopha_flightmode&metric=coverage)
 
-[![<Sonarcloud quality gate>](https://sonarcloud.io/api/project_badges/measure?project=NalediMadlopha_flightmode&metric=alert_status)](https://sonarcloud.io/dashboard?id=NalediMadlopha_flightmode)
+[![<Sonarcloud code smells>](https://sonarcloud.io/api/project_badges/measure?project=NalediMadlopha_flightmode&metric=alert_status)](https://sonarcloud.io/dashboard?id=NalediMadlopha_flightmode)
 
 [![<Sonarcloud quality gate>](https://sonarcloud.io/api/project_badges/measure?project=NalediMadlopha_flightmode&metric=alert_status)](https://sonarcloud.io/dashboard?id=NalediMadlopha_flightmode)
 
