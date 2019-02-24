@@ -1,0 +1,32 @@
+[
+  {
+    "nameAirport": "Baubau",
+    "codeIataAirport": "BUW",
+    "codeIcaoAirport": "WAWB",
+    "nameTranslations": "Baubau,Baubau,Betoambari Airport,Betoambari Airport,Betoambari Airport,?????????????,??????",
+    "latitudeAirport": "-5.466667",
+    "longitudeAirport": "122.63333",
+    "timezone": "Asia/Makassar",
+    "GMT": "8",
+    "phone": "",
+    "nameCountry": "Indonesia",
+    "codeIso2Country": "ID",
+    "codeIataCity": "BUW",
+    "distance": "0"
+  },
+  {
+    "nameAirport": "Sugimanuru",
+    "codeIataAirport": "RAQ",
+    "codeIcaoAirport": "WAWR",
+    "nameTranslations": "Sugimanuru,Sugimanuru,????",
+    "latitudeAirport": "-4.916667",
+    "longitudeAirport": "122.583336",
+    "timezone": "Asia/Makassar",
+    "GMT": "8",
+    "phone": "",
+    "nameCountry": "Indonesia",
+    "codeIso2Country": "ID",
+    "codeIataCity": "RAQ",
+    "distance": "61.49402981595648"
+  }
+]
