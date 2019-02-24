@@ -61,6 +61,7 @@ ext {
         espressoCore:               "androidx.test.espresso:espresso-core:${versionEspressoCore}",
         junit:                      "androidx.test.ext:junit:${versionJunit}",
         mockito:                    "org.mockito:mockito-core:${versionMockito}",
+        retrofitMock:               "com.squareup.retrofit2:retrofit-mock:${versionRetrofitMock}",
         testRunner:                 "androidx.test:runner:${versionTestRunner}",
         robolectric:                "org.robolectric:robolectric:${versionRobolectric}"
     ]
