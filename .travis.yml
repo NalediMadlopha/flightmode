@@ -47,5 +47,5 @@ addons:
 
 script:
 - ./gradlew build check
-- ./gradlew clean jacocoTestReport
+- ./gradlew clean testDebugUnitTestCoverage
 - sonar-scanner
