@@ -23,7 +23,8 @@ ext {
     versionDagger = '2.17'
     versionGson = '2.8.5'
     versionMaterial = '1.0.0'
-    versionPlayServicesMaps = '16.1.0'
+    versionGoogleMapsService = '16.1.0'
+    versionGoogleLocationService = '16.0.0'
     versionRetrofit = '2.5.0'
 
     versionEspressoCore = '3.1.2-alpha01'
@@ -52,7 +53,8 @@ ext {
         daggerAndroidProcessor:     "com.google.dagger:dagger-android-processor:${versionDagger}",
         gson:                       "com.google.code.gson:gson:${versionGson}", // Not used yet
         material:                   "com.google.android.material:material:${versionMaterial}",
-        playServicesMaps:           "com.google.android.gms:play-services-maps:${versionPlayServicesMaps}",
+        googleMapsService:          "com.google.android.gms:play-services-maps:${versionGoogleMapsService}",
+        googleLocationService:      "com.google.android.gms:play-services-location:${versionGoogleLocationService}",
         retrofit:                   "com.squareup.retrofit2:retrofit:${versionRetrofit}",
         retrofitConverterGson:      "com.squareup.retrofit2:converter-gson:${versionRetrofit}"
     ]
