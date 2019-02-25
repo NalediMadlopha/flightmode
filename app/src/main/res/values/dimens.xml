@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="app_bar_layout_elevation">4dp</dimen>
+    <dimen name="collapsing_toolbar_layout_height">250dp</dimen>
+
+    <dimen name="flight_schedule_heading_text_padding">24dp</dimen>
+    <dimen name="flight_schedule_location_text_margin_start">12dp</dimen>
+</resources>
