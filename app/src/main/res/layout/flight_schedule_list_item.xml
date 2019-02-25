@@ -49,7 +49,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <com.flightmode.app.widget.LabelValueWidget
-            android:id="@+id/flight_schedule_departure_label_value_widget"
+            android:id="@+id/flightScheduleDepartureLabelValueWidget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/flight_schedule_divider_margin"
@@ -59,7 +59,7 @@
             tools:text_bottom="05:30" />
 
         <com.flightmode.app.widget.LabelValueWidget
-            android:id="@+id/flight_schedule_flight_number_label_value_widget"
+            android:id="@+id/flightScheduleFlightNumberLabelValueWidget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/flight_schedule_divider_margin"
@@ -70,7 +70,7 @@
             tools:text_bottom="SAS303" />
 
         <com.flightmode.app.widget.LabelValueWidget
-            android:id="@+id/flight_schedule_destination_label_value_widget"
+            android:id="@+id/flightScheduleDestinationLabelValueWidget"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/flight_schedule_divider_margin"
