@@ -20,7 +20,7 @@ class FlightScheduleFragment : Fragment() {
     private fun setupToolBar() {
         if (toolbar != null) {
             toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-            toolbar.setNavigationOnClickListener { activity!!.onBackPressed() }
+            toolbar.setNavigationOnClickListener { activity?.onBackPressed() }
         }
     }
 }
