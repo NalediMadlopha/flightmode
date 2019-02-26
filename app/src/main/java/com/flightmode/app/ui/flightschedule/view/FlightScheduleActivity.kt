@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.flightmode.app.R
 import com.flightmode.app.model.Airport
 import com.flightmode.app.ui.flightschedule.viewmodel.FlightScheduleViewModel
-import com.flightmode.app.ui.map.view.MapActivity
-import com.flightmode.app.util.ViewModelFactory
-
+import com.flightmode.app.utils.ViewModelFactory
 
 class FlightScheduleActivity : AppCompatActivity() {
 
@@ -16,12 +14,16 @@ class FlightScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.flight_schedule_activity)
 
-        val airport = intent.getParcelableExtra<Airport>(MapActivity.SELECTED_AIRPORT)
+        val airport = intent.getParcelableExtra<Airport>(SELECTED_AIRPORT)
 
         ViewModelProviders.of(
             this,
             ViewModelFactory { FlightScheduleViewModel(airport) }
         ).get(FlightScheduleViewModel::class.java)
+    }
+
+    companion object {
+       private const val SELECTED_AIRPORT = "SELECTED_AIRPORT"
     }
 
 }

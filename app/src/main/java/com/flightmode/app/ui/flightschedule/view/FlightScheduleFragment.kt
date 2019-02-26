@@ -13,6 +13,7 @@ import com.flightmode.app.model.Airport
 import com.flightmode.app.model.FlightSchedule
 import com.flightmode.app.ui.flightschedule.viewmodel.FlightScheduleViewModel
 import kotlinx.android.synthetic.main.flight_schedule_fragment.*
+import kotlinx.android.synthetic.main.flight_schedule_fragment.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,13 +21,14 @@ import retrofit2.Response
 
 class FlightScheduleFragment : Fragment(), Callback<List<FlightSchedule>> {
 
+    private lateinit var rootView: View
     private lateinit var viewModel: FlightScheduleViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(com.flightmode.app.R.layout.flight_schedule_fragment, container, false)
+        rootView = inflater.inflate(com.flightmode.app.R.layout.flight_schedule_fragment, container, false)
         setupToolBar()
 
-        return view
+        return rootView
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -35,8 +37,8 @@ class FlightScheduleFragment : Fragment(), Callback<List<FlightSchedule>> {
         viewModel.init(this)
 
         viewModel.getAirportDetails().observe(this,  Observer<Airport> {
-            flightScheduleAirportNameTextView.text = it.nameAirport
-            flightScheduleAirportLocation.text = it.nameCountry
+            rootView.flightScheduleAirportNameTextView.text = it.nameAirport
+            rootView.flightScheduleAirportLocation.text = it.nameCountry
         })
 
         viewModel.requestFlightSchedules()
