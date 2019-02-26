@@ -57,7 +57,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getNearbyAirports_should_return_an_error_response_when_the_api_returns_an_error_response() {
-        val call = mockErrorServiceCall.getNearbyAirports("-5.466667", "122.63333", "100")
+        val call = mockErrorServiceCall.getNearbyAirports(lat = "-5.466667", lng = "122.63333", distance = "100")
         val response = call.execute()
 
         assertFalse(response.isSuccessful)
@@ -65,7 +65,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getNearbyAirports_should_return_a_success_response_when_the_api_returns_a_success_response() {
-        val call = mockSuccessServiceCall.getNearbyAirports("-5.466667", "122.63333", "100")
+        val call = mockSuccessServiceCall.getNearbyAirports(lat = "-5.466667", lng = "122.63333", distance = "100")
         val response = call.execute()
 
         assertTrue(response.isSuccessful)
@@ -73,7 +73,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getAirportsSchedule_should_return_an_error_response_when_the_api_returns_an_error_response() {
-        val call = mockErrorServiceCall.getAirportsSchedule("JFK", "departure")
+        val call = mockErrorServiceCall.getAirportsSchedule(iataCode = "JFK", type = "departure")
         val response = call.execute()
 
         assertFalse(response.isSuccessful)
@@ -81,7 +81,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getAirportsSchedule_should_return_a_success_response_when_the_api_returns_a_success_response() {
-        val call = mockSuccessServiceCall.getAirportsSchedule("JFK", "departure")
+        val call = mockSuccessServiceCall.getAirportsSchedule(iataCode = "JFK", type = "departure")
         val response = call.execute()
 
         assertTrue(response.isSuccessful)
@@ -89,7 +89,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getCity_should_return_an_error_response_when_the_api_returns_an_error_response() {
-        val call = mockErrorServiceCall.getCity("JFK")
+        val call = mockErrorServiceCall.getCity(iataCode = "JFK")
         val response = call.execute()
 
         assertFalse(response.isSuccessful)
@@ -97,7 +97,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getCity_should_return_a_success_response_when_the_api_returns_a_success_response() {
-        val call = mockSuccessServiceCall.getCity("JFK")
+        val call = mockSuccessServiceCall.getCity(iataCode = "JFK")
         val response = call.execute()
 
         assertTrue(response.isSuccessful)
@@ -105,39 +105,39 @@ class AviationEdgeServiceTest {
 
     class MockErrorServiceCall(private val service: BehaviorDelegate<AviationEdgeService>) : AviationEdgeService {
 
-        override fun getNearbyAirports(lat: String, lng: String, distance: String, incorrectApiKey: String): Call<List<Airport>> {
-
-            return service.returning(Calls.response(errorResponse)).getNearbyAirports(lat, lng, distance)
+        override fun getNearbyAirports(incorrectApiKey: String, lat: String, lng: String, distance: String): Call<List<Airport>> {
+            return service.returning(Calls.response(errorResponse)).getNearbyAirports(lat = lat, lng = lng, distance = distance)
         }
 
-        override fun getAirportsSchedule(iataCode: String, type: String, incorrectApiKey: String): Call<List<FlightSchedule>> {
-            return service.returning(Calls.response(errorResponse)).getAirportsSchedule(iataCode, type)
+        override fun getAirportsSchedule(incorrectApiKey: String, iataCode: String, type: String): Call<List<FlightSchedule>> {
+            return service.returning(Calls.response(errorResponse)).getAirportsSchedule(iataCode = iataCode, type = type)
         }
 
-        override fun getCity(iataCode: String, apiKey: String): Call<List<City>> {
-            return service.returning(Calls.response(errorResponse)).getCity(iataCode)
+        override fun getCity(incorrectApiKey: String, iataCode: String): Call<List<City>> {
+            return service.returning(Calls.response(errorResponse)).getCity(iataCode = iataCode)
         }
 
     }
 
     class MockSuccessServiceCall(private val service: BehaviorDelegate<AviationEdgeService>) : AviationEdgeService {
 
-        override fun getNearbyAirports(lat: String, lng: String, distance: String, key: String): Call<List<Airport>> {
+        override fun getNearbyAirports(key: String, lat: String, lng: String, distance: String): Call<List<Airport>> {
             val successResponse = Response.success(listOf<Airport>())
+
             return service.returningResponse(Response.success(successResponse))
-                .getNearbyAirports(lat, lng, distance, key)
+                .getNearbyAirports(key, lat, lng, distance)
         }
 
-        override fun getAirportsSchedule(iataCode: String, type: String, apiKey: String): Call<List<FlightSchedule>> {
+        override fun getAirportsSchedule(apiKey: String, iataCode: String, type: String): Call<List<FlightSchedule>> {
             val successResponse = Response.success(listOf<FlightSchedule>())
             return service.returningResponse(Response.success(successResponse))
-                .getAirportsSchedule(iataCode, type, apiKey)
+                .getAirportsSchedule(apiKey, iataCode, type)
         }
 
-        override fun getCity(iataCode: String, apiKey: String): Call<List<City>> {
+        override fun getCity(apiKey: String, iataCode: String): Call<List<City>> {
             val successResponse = Response.success(listOf<City>())
             return service.returningResponse(Response.success(successResponse))
-                .getCity(iataCode, apiKey)
+                .getCity(apiKey, iataCode)
         }
 
     }
