@@ -19,14 +19,6 @@ import retrofit2.mock.Calls
 import retrofit2.mock.MockRetrofit
 import retrofit2.mock.NetworkBehavior
 
-private val errorResponse: Response<JsonObject> by lazy {
-    val errorResponse = Response.error<JsonObject>(
-        404,
-        ResponseBody.create(MediaType.parse("application/json"), MockErrorResponse.DATA)
-    )
-    errorResponse
-}
-
 class AviationEdgeServiceTest {
 
     private lateinit var retrofit: Retrofit
@@ -122,24 +114,23 @@ class AviationEdgeServiceTest {
     class MockSuccessServiceCall(private val service: BehaviorDelegate<AviationEdgeService>) : AviationEdgeService {
 
         override fun getNearbyAirports(key: String, lat: String, lng: String, distance: String): Call<List<Airport>> {
-            val successResponse = Response.success(listOf<Airport>())
-
-            return service.returningResponse(Response.success(successResponse))
-                .getNearbyAirports(key, lat, lng, distance)
+            return service.returningResponse(Response.success(listOf<Airport>())).getNearbyAirports(key, lat, lng, distance)
         }
 
         override fun getAirportsSchedule(apiKey: String, iataCode: String, type: String): Call<List<FlightSchedule>> {
-            val successResponse = Response.success(listOf<FlightSchedule>())
-            return service.returningResponse(Response.success(successResponse))
-                .getAirportsSchedule(apiKey, iataCode, type)
+            return service.returningResponse(Response.success(listOf<FlightSchedule>())).getAirportsSchedule(apiKey, iataCode, type)
         }
 
         override fun getCity(apiKey: String, iataCode: String): Call<List<City>> {
-            val successResponse = Response.success(listOf<City>())
-            return service.returningResponse(Response.success(successResponse))
-                .getCity(apiKey, iataCode)
+            return service.returningResponse(Response.success(listOf<City>())).getCity(apiKey, iataCode)
         }
 
+    }
+
+    companion object {
+        private val errorResponse = Response.error<JsonObject>(
+        404, ResponseBody.create(MediaType.parse("application/json"), MockErrorResponse.DATA)
+        )
     }
 
 }

@@ -49,4 +49,3 @@ addons:
 
 script:
 - ./gradlew build check
-- ./gradlew clean testDebugUnitTestCoverage
