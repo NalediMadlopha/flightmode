@@ -28,11 +28,11 @@ class FlightScheduleAdapter(private val flightScheduleList: List<FlightSchedule>
     class FlightScheduleViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(flightSchedule: FlightSchedule) {
-            flightScheduleAirlineNameTextView.text = flightSchedule.airlineName
+            flightScheduleAirlineNameTextView.text = flightSchedule.airline.name
             flightScheduleStatusTextView.text = flightSchedule.status
-            flightScheduleDepartureLabelValueWidget.setBottomText(flightSchedule.departureTime)
-            flightScheduleFlightNumberLabelValueWidget.setBottomText(flightSchedule.flightNumber)
-            flightScheduleDestinationLabelValueWidget.setBottomText(flightSchedule.destination)
+//            flightScheduleDepartureLabelValueWidget.setBottomText(flightSchedule.departure.scheduledTime)
+            flightScheduleFlightNumberLabelValueWidget.setBottomText(flightSchedule.flight.number)
+            flightScheduleDestinationLabelValueWidget.setBottomText(flightSchedule.arrival.iataCode)
         }
 
     }

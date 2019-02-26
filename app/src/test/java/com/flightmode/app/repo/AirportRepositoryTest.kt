@@ -29,7 +29,7 @@ class AirportRepositoryTest {
 
         repository.getNearbyAirports(latitude, longitude, distance)
 
-        verify(mockAviationEdgeService).getNearbyAirports(latitude, longitude, distance)
+        verify(mockAviationEdgeService).getNearbyAirports(lat = latitude, lng = longitude, distance = distance)
     }
 
     @Test
@@ -39,16 +39,16 @@ class AirportRepositoryTest {
 
         repository.getAirportsSchedule(iataCode, type)
 
-        verify(mockAviationEdgeService).getAirportsSchedule(iataCode, type)
+        verify(mockAviationEdgeService).getAirportsSchedule(iataCode = iataCode, type = type)
     }
 
     @Test
     fun repository_getCity_should_make_a_getCity_service_call() {
         val codeIataCity = "codelataCity"
-        
+
         repository.getCity(codeIataCity)
 
-        verify(mockAviationEdgeService).getCity(codeIataCity)
+        verify(mockAviationEdgeService).getCity(iataCode = codeIataCity)
     }
 
 }

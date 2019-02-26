@@ -12,15 +12,15 @@ class AirportRepository @VisibleForTesting constructor(private val service: Avia
     constructor() : this(AviationEdgeService.getInstance())
 
     override fun getNearbyAirports(lat: String, lng: String, distance: String): Call<List<Airport>> {
-        return service.getNearbyAirports(lat, lng, distance)
+        return service.getNearbyAirports(lat = lat, lng = lng, distance = distance)
     }
 
     override fun getAirportsSchedule(iataCode: String, type: String): Call<List<FlightSchedule>> {
-        return service.getAirportsSchedule(iataCode, type)
+        return service.getAirportsSchedule(iataCode = iataCode, type = type)
     }
 
     override fun getCity(codeIataCity: String): Call<List<City>> {
-        return service.getCity(codeIataCity)
+        return service.getCity(iataCode = codeIataCity)
     }
 
 }
