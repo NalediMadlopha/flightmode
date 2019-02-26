@@ -1,12 +1,14 @@
 package com.flightmode.app.service
 
+import com.flightmode.app.model.Airport
+import com.flightmode.app.model.City
+import com.flightmode.app.model.FlightSchedule
 import com.google.gson.JsonObject
-import com.google.gson.JsonParser
 import okhttp3.MediaType
 import okhttp3.ResponseBody
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Before
-
-import org.junit.Assert.*
 import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
@@ -16,6 +18,14 @@ import retrofit2.mock.BehaviorDelegate
 import retrofit2.mock.Calls
 import retrofit2.mock.MockRetrofit
 import retrofit2.mock.NetworkBehavior
+
+private val errorResponse: Response<JsonObject> by lazy {
+    val errorResponse = Response.error<JsonObject>(
+        404,
+        ResponseBody.create(MediaType.parse("application/json"), MockErrorResponse.DATA)
+    )
+    errorResponse
+}
 
 class AviationEdgeServiceTest {
 
@@ -47,7 +57,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getNearbyAirports_should_return_an_error_response_when_the_api_returns_an_error_response() {
-        val call = mockErrorServiceCall.getNearbyAirports("Incorrect key", "-5.466667", "122.63333", "100")
+        val call = mockErrorServiceCall.getNearbyAirports(lat = "-5.466667", lng = "122.63333", distance = "100")
         val response = call.execute()
 
         assertFalse(response.isSuccessful)
@@ -55,7 +65,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getNearbyAirports_should_return_a_success_response_when_the_api_returns_a_success_response() {
-        val call = mockSuccessServiceCall.getNearbyAirports("8477db3-385de", "-5.466667", "122.63333", "100")
+        val call = mockSuccessServiceCall.getNearbyAirports(lat = "-5.466667", lng = "122.63333", distance = "100")
         val response = call.execute()
 
         assertTrue(response.isSuccessful)
@@ -63,7 +73,7 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getAirportsSchedule_should_return_an_error_response_when_the_api_returns_an_error_response() {
-        val call = mockErrorServiceCall.getAirportsSchedule("Incorrect key", "JFK", "departure")
+        val call = mockErrorServiceCall.getAirportsSchedule(iataCode = "JFK", type = "departure")
         val response = call.execute()
 
         assertFalse(response.isSuccessful)
@@ -71,7 +81,23 @@ class AviationEdgeServiceTest {
 
     @Test
     fun getAirportsSchedule_should_return_a_success_response_when_the_api_returns_a_success_response() {
-        val call = mockSuccessServiceCall.getAirportsSchedule("8477db3-385de", "JFK", "departure")
+        val call = mockSuccessServiceCall.getAirportsSchedule(iataCode = "JFK", type = "departure")
+        val response = call.execute()
+
+        assertTrue(response.isSuccessful)
+    }
+
+    @Test
+    fun getCity_should_return_an_error_response_when_the_api_returns_an_error_response() {
+        val call = mockErrorServiceCall.getCity(iataCode = "JFK")
+        val response = call.execute()
+
+        assertFalse(response.isSuccessful)
+    }
+
+    @Test
+    fun getCity_should_return_a_success_response_when_the_api_returns_a_success_response() {
+        val call = mockSuccessServiceCall.getCity(iataCode = "JFK")
         val response = call.execute()
 
         assertTrue(response.isSuccessful)
@@ -79,40 +105,39 @@ class AviationEdgeServiceTest {
 
     class MockErrorServiceCall(private val service: BehaviorDelegate<AviationEdgeService>) : AviationEdgeService {
 
-        override fun getNearbyAirports(incorrectApiKey: String, lat: String, lng: String, distance: String): Call<JsonObject> {
-            val errorResponse = Response.error<JsonObject>(
-                404,
-                ResponseBody.create(MediaType.parse("application/json"), MockErrorResponse.DATA)
-            )
-
-            return service.returning(Calls.response(errorResponse)).getNearbyAirports(incorrectApiKey, lat, lng, distance)
+        override fun getNearbyAirports(incorrectApiKey: String, lat: String, lng: String, distance: String): Call<List<Airport>> {
+            return service.returning(Calls.response(errorResponse)).getNearbyAirports(lat = lat, lng = lng, distance = distance)
         }
 
-        override fun getAirportsSchedule(incorrectApiKey: String, iataCode: String, type: String): Call<JsonObject> {
-            val errorResponse = Response.error<JsonObject>(
-                404,
-                ResponseBody.create(MediaType.parse("application/json"), MockErrorResponse.DATA)
-            )
+        override fun getAirportsSchedule(incorrectApiKey: String, iataCode: String, type: String): Call<List<FlightSchedule>> {
+            return service.returning(Calls.response(errorResponse)).getAirportsSchedule(iataCode = iataCode, type = type)
+        }
 
-            return service.returning(Calls.response(errorResponse)).getAirportsSchedule(incorrectApiKey, iataCode, type)
+        override fun getCity(incorrectApiKey: String, iataCode: String): Call<List<City>> {
+            return service.returning(Calls.response(errorResponse)).getCity(iataCode = iataCode)
         }
 
     }
 
     class MockSuccessServiceCall(private val service: BehaviorDelegate<AviationEdgeService>) : AviationEdgeService {
 
-        override fun getNearbyAirports(key: String, lat: String, lng: String, distance: String): Call<JsonObject> {
-            val mockSuccessResponseJsonObject = JsonParser().parse(MockNearbyAirportsSuccessResponse.DATA).asJsonArray
-            val successResponse = Response.success(mockSuccessResponseJsonObject)
+        override fun getNearbyAirports(key: String, lat: String, lng: String, distance: String): Call<List<Airport>> {
+            val successResponse = Response.success(listOf<Airport>())
+
             return service.returningResponse(Response.success(successResponse))
                 .getNearbyAirports(key, lat, lng, distance)
         }
 
-        override fun getAirportsSchedule(apiKey: String, iataCode: String, type: String): Call<JsonObject> {
-            val mockSuccessResponseJsonObject = JsonParser().parse(MockAirportScheduleSuccessResponse.DATA).asJsonArray
-            val successResponse = Response.success(mockSuccessResponseJsonObject)
+        override fun getAirportsSchedule(apiKey: String, iataCode: String, type: String): Call<List<FlightSchedule>> {
+            val successResponse = Response.success(listOf<FlightSchedule>())
             return service.returningResponse(Response.success(successResponse))
                 .getAirportsSchedule(apiKey, iataCode, type)
+        }
+
+        override fun getCity(apiKey: String, iataCode: String): Call<List<City>> {
+            val successResponse = Response.success(listOf<City>())
+            return service.returningResponse(Response.success(successResponse))
+                .getCity(apiKey, iataCode)
         }
 
     }
