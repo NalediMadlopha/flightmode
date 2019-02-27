@@ -7,7 +7,7 @@ import com.flightmode.app.model.FlightSchedule
 import com.flightmode.app.service.AviationEdgeService
 import retrofit2.Call
 
-class AirportRepository @VisibleForTesting constructor(private val service: AviationEdgeService) : AirportRepositoryContract {
+open class AirportRepository @VisibleForTesting constructor(private val service: AviationEdgeService) : AirportRepositoryContract {
 
     constructor() : this(AviationEdgeService.getInstance())
 

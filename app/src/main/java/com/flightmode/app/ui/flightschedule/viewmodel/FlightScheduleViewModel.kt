@@ -2,37 +2,32 @@ package com.flightmode.app.ui.flightschedule.viewmodel
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.flightmode.app.model.Airport
-import com.flightmode.app.model.FlightSchedule
 import com.flightmode.app.repo.AirportRepository
-import retrofit2.Callback
+import com.flightmode.app.ui.flightschedule.view.FlightScheduleView
 
 
 class FlightScheduleViewModel
 @VisibleForTesting constructor(
     private val repository: AirportRepository,
-    private val airport: Airport
+    private val airportLiveData: LiveData<Airport>
 ) : ViewModel() {
 
-    private lateinit var callback: Callback<List<FlightSchedule>>
+    private lateinit var view: FlightScheduleView
 
-    constructor(airport: Airport) : this(AirportRepository(), airport)
+    constructor(airportLiveData: LiveData<Airport>, scheduleType: String) : this(AirportRepository(), airportLiveData)
 
-    fun init(callback: Callback<List<FlightSchedule>>) {
-        this.callback = callback
+    fun init(view: FlightScheduleView) {
+        this.view = view
     }
 
-    fun requestFlightSchedules() {
-        repository.getAirportsSchedule(airport.codeIataAirport, "departure").enqueue(callback)
-    }
+    fun getAirportDetails() = airportLiveData
 
-    fun getAirportDetails(): LiveData<Airport> {
-        val airportLiveData = MutableLiveData<Airport>()
-        airportLiveData.value = airport
+    fun requestFlightSchedules(codeIataAirport: String, scheduleType: String) {
+        view.showProgress()
 
-        return airportLiveData
+        repository.getAirportsSchedule(codeIataAirport, scheduleType).enqueue(view)
     }
 
 }
