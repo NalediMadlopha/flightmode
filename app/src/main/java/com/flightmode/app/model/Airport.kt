@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Airport(
+open class Airport(
     val GMT: String,
     val codeIataAirport: String,
     val codeIataCity: String,

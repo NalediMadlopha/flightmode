@@ -30,6 +30,14 @@ class FlightScheduleAdapter(private val flightScheduleList: List<FlightSchedule>
         fun bind(flightSchedule: FlightSchedule) {
             flightScheduleAirlineNameTextView.text = flightSchedule.airline.name
             flightScheduleStatusTextView.text = flightSchedule.status
+
+            flightScheduleStatusTextView.let {
+                when (flightSchedule.status) {
+                    "active", "scheduled" -> it.setCompoundDrawablesWithIntrinsicBounds(R.drawable.green_dot, 0, 0, 0)
+                    else -> it.setCompoundDrawablesWithIntrinsicBounds( R.drawable.red_dot, 0, 0, 0)
+                }
+            }
+
 //            flightScheduleDepartureLabelValueWidget.setBottomText(flightSchedule.departure.scheduledTime)
             flightScheduleFlightNumberLabelValueWidget.setBottomText(flightSchedule.flight.number)
             flightScheduleDestinationLabelValueWidget.setBottomText(flightSchedule.arrival.iataCode)

@@ -2,6 +2,7 @@ package com.flightmode.app.ui.flightschedule.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProviders
 import com.flightmode.app.R
 import com.flightmode.app.model.Airport
@@ -14,12 +15,14 @@ class FlightScheduleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.flight_schedule_activity)
 
-        val airport = intent.getParcelableExtra<Airport>(SELECTED_AIRPORT)
+        val airportLiveData = MutableLiveData<Airport>()
+        airportLiveData.value = intent.getParcelableExtra<Airport>(SELECTED_AIRPORT)
 
         ViewModelProviders.of(
             this,
-            ViewModelFactory { FlightScheduleViewModel(airport) }
+            ViewModelFactory { FlightScheduleViewModel(airportLiveData, "departure") }
         ).get(FlightScheduleViewModel::class.java)
+
     }
 
     companion object {
